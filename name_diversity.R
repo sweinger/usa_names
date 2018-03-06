@@ -16,7 +16,6 @@ baby_names <- do.call(rbind, lapply(ssa_files, function(x) {
   cbind(year, read.csv(x, header = FALSE))
 }))
 names(baby_names) <- c("year","name","gender","count")
-baby_names <- baby_names[]
 
 unlink(temp)
 unlink(extractdir, recursive = TRUE)
@@ -51,6 +50,7 @@ gt$layout$clip[gt$layout$name == "panel"] <- "off"
 grid.newpage()
 grid.draw(gt)
 
+# this is adapted from the code in edgeR::goodTuring
 good_turing_counts <- function(x) {
   n <- tabulate(x + 1L)
   n0 <- n[1]
@@ -67,6 +67,7 @@ good_turing_counts <- function(x) {
   return(exp(predict(fit, newdata = data.frame(r=1:4))))  
 }
 
+# this is adapted from the code in edgeR::goodTuring
 good_turing_plot <- function(x) {
   n <- tabulate(x + 1L)
   n0 <- n[1]
